@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Whack-a-Mole Game</title>
+  <style>
+    body {
+      background-color: #f4f4f4;
+      color: #333;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    .game-board {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      grid-template-rows: repeat(3, 100px);
+      gap: 10px;
+      margin: 50px auto;
+      width: 360px;
+      height: 360px;
+    }
+    .hole {
+      width: 100px;
+      height: 100px;
+      background-color: #ddd;
+      border-radius: 50%;
+      position: relative;
+      cursor: pointer;
+    }
+    .mole {
+      position: absolute;
+      width: 70px;
+      height: 70px;
+      background-color: brown;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: none;
+    }
+    .scoreboard {
+      font-size: 24px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Whack-a-Mole Game</h1>
+  <div class="game-board">
+    <div class="hole" data-hole="0"><div class="mole"></div></div>
+    <div class="hole" data-hole="1"><div class="mole"></div></div>
+    <div class="hole" data-hole="2"><div class="mole"></div></div>
+    <div class="hole" data-hole="3"><div class="mole"></div></div>
+    <div class="hole" data-hole="4"><div class="mole"></div></div>
+    <div class="hole" data-hole="5"><div class="mole"></div></div>
+    <div class="hole" data-hole="6"><div class="mole"></div></div>
+    <div class="hole" data-hole="7"><div class="mole"></div></div>
+    <div class="hole" data-hole="8"><div class="mole"></div></div>
+  </div>
+  
+  <div class="scoreboard">
+    <p>Score: <span id="score">0</span></p>
+  </div>
+
+  <script>
+    let score = 0;
+    let gameInterval;
+    let moleInterval;
+    let currentHole;
+
+    // Get all holes and moles
+    const holes = document.querySelectorAll('.hole');
+    const moles = document.querySelectorAll('.mole');
+    const scoreDisplay = document.getElementById('score');
+
+    // Function to hide all moles
+    function hideMoles() {
+      moles.forEach(mole => mole.style.display = 'none');
+    }
+
+    // Function to show a random mole
+    function showMole() {
+      // Hide previous mole
+      hideMoles();
+      // Get a random hole
+      currentHole = Math.floor(Math.random() * holes.length);
+      const mole = holes[currentHole].querySelector('.mole');
+      mole.style.display = 'block';
+    }
+
+    // Function to start the game
+    function startGame() {
+      score = 0;
+      scoreDisplay.textContent = score;
+      gameInterval = setInterval(() => {
+        showMole();
+      }, 1000);
+    }
+
+    // Function to handle clicking on a hole (whacking the mole)
+    holes.forEach(hole => {
+      hole.addEventListener('click', () => {
+        const mole = hole.querySelector('.mole');
+        if (mole.style.display === 'block') {
+          score++;
+          scoreDisplay.textContent = score;
+          mole.style.display = 'none';  // Hide the mole after it's hit
+        }
+      });
+    });
+
+    // Function to stop the game
+    function stopGame() {
+      clearInterval(gameInterval);
+      alert('Game Over! Final score: ' + score);
+      score = 0;
+      scoreDisplay.textContent = score;
+    }
+
+    // Start the game when the page loads
+    window.onload = startGame;
+
+    // Stop the game after 30 seconds
+    setTimeout(stopGame, 30000);
+  </script>
+
+</body>
+</html>
+
+
+
