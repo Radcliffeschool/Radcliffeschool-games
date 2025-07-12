@@ -1,0 +1,29 @@
+/* Basic CSS Styling for Platformer Game */
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #333;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+canvas {
+  display: block;
+  margin: 0 auto;
+  background-color: #87CEEB; /* Sky blue background for the game */
+  border: 2px solid black;
+}
+
+/* Game Instructions and Header */
+header {
+  color: white;
+  font-size: 30px;
+  margin-top: 20px;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.game-container {
+  margin-top: 50px;
+}
