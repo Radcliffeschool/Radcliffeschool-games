@@ -1,0 +1,91 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Easy Game</title>
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      margin-top: 30px;
+    }
+    canvas {
+      border: 2px solid black;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎮 My Easy Game</h1>
+  <p>Use arrow keys to move the square!</p>
+  <canvas id="gameCanvas" width="400" height="400"></canvas>
+
+  <script>
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+
+    let x = 50, y = 50;
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "blue";
+      ctx.fillRect(x, y, 30, 30);
+    }
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowUp") y -= 10;
+      if (e.key === "ArrowDown") y += 10;
+      if (e.key === "ArrowLeft") x -= 10;
+      if (e.key === "ArrowRight") x += 10;
+      draw();
+    });
+
+    draw();
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Simple Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 20px;
+    }
+    canvas {
+      border: 2px solid black;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎮 My Simple Game</h1>
+  <p>Use the arrow keys to move the square!</p>
+  <canvas id="gameCanvas" width="400" height="400"></canvas>
+
+  <script>
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+
+    let x = 50, y = 50;
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "blue";
+      ctx.fillRect(x, y, 30, 30);
+    }
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowUp") y -= 10;
+      if (e.key === "ArrowDown") y += 10;
+      if (e.key === "ArrowLeft") x -= 10;
+      if (e.key === "ArrowRight") x += 10;
+      draw();
+    });
+
+    draw(); // Initial call to display the square
+  </script>
+</body>
+</html>
