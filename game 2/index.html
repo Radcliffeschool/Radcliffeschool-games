@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snake Game</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      text-align: center;
+    }
+    canvas {
+      border: 1px solid white;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Snake Game</h1>
+  <canvas id="gameCanvas" width="400" height="400"></canvas>
+
+  <script>
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+
+    const grid = 20;
+    let snake = [{ x: 9 * grid, y: 9 * grid }];
+    let apple = { x: 5 * grid, y: 5 * grid };
+    let direction = "right";
+    let score = 0;
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw the apple
+      ctx.fillStyle = "red";
+      ctx.fillRect(apple.x, apple.y, grid, grid);
+
+      // Draw the snake
+      ctx.fillStyle = "green";
+      for (let i = 0; i < snake.length; i++) {
+        ctx.fillRect(snake[i].x, snake[i].y, grid, grid);
+      }
+
+      // Update snake movement
+      let head = { ...snake[0] };
+      if (direction === "right") head.x += grid;
+      if (direction === "left") head.x -= grid;
+      if (direction === "up") head.y -= grid;
+      if (direction === "down") head.y += grid;
+
+      snake.unshift(head);
+
+      if (head.x === apple.x && head.y === apple.y) {
+        apple = { x: Math.floor(Math.random() * 20) * grid, y: Math.floor(Math.random() * 20) * grid };
+        score++;
+      } else {
+        snake.pop();
+      }
+
+      // Game Over condition
+      if (head.x < 0 || head.y < 0 || head.x >= canvas.width || head.y >= canvas.height || snake.some((segment, index) => index !== 0 && segment.x === head.x && segment.y === head.y)) {
+        alert("Game Over!");
+        snake = [{ x: 9 * grid, y: 9 * grid }];
+        direction = "right";
+        score = 0;
+      }
+    }
+
+    function changeDirection(e) {
+      if (e.key === "ArrowUp" && direction !== "down") direction = "up";
+      if (e.key === "ArrowDown" && direction !== "up") direction = "down";
+      if (e.key === "ArrowLeft" && direction !== "right") direction = "left";
+      if (e.key === "ArrowRight" && direction !== "left") direction = "right";
+    }
+
+    document.addEventListener("keydown", changeDirection);
+
+    function gameLoop() {
+      draw();
+      requestAnimationFrame(gameLoop);
+    }
+
+    gameLoop();
+  </script>
+
+</body>
+</html>
